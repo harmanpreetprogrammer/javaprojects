@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+class rect 
+{
+    public:
+    rect()
+    {
+        cout<<"\n construction of rect class:";
+    }
+   virtual ~  rect()
+    {
+        cout<<"\n destruction of rect class";
+    }
+};
+class circle:public rect 
+{ 
+    public:
+    circle()
+    {
+        cout<<"\nconstruction of circle class:";
+    }
+    ~circle()
+    {
+        cout<<"\ndestruction of circle class:";
+    }
+};
+int main()
+{
+    rect *ptr=new circle;
+    delete ptr;
+    
+    
+    
+     
+    
+}
