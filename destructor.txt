@@ -12,6 +12,11 @@ public:
     {
         cout<<"\n destruction of rect class";
     }
+
+   virtual ~  rect()
+    {
+        cout<<"\n destruction of rect class";
+    }
 };
 public:
     rect()
