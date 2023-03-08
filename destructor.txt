@@ -2,7 +2,18 @@
 using namespace std;
 class rect 
 {
-    public:
+    
+public:
+    rect()
+    {
+        cout<<"\n construction of rect class:";
+    }
+   virtual ~  rect()
+    {
+        cout<<"\n destruction of rect class";
+    }
+};
+public:
     rect()
     {
         cout<<"\n construction of rect class:";
