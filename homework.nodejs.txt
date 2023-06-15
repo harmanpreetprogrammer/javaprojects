@@ -1,0 +1,147 @@
+Asynchronous programming:-
+Asynchronous programming is a multithreaded model that’s most applicable to networking and communications. Asynchronous is a non-blocking architecture, which means it doesn’t block further execution while one or more operations are in progress.
+With asynchronous programming, multiple related operations can run concurrently without waiting for other tasks to complete.
+
+
+Synchronous programming:-
+Synchronous is known as a blocking architecture and is ideal for programming reactive systems. As a single-thread model, it follows a strict set of sequences, which means that operations are performed one at a time, in perfect order. While one operation is being performed, other operations’ instructions are blocked. The completion of the first task triggers the next, and so on.
+
+
+The differences between asynchronous and synchronous include:
+
+*   Async is multi-thread, which means operations or programs can run in parallel. Sync is single-thread, so only one operation or program will run at a time.
+
+*   Async is non-blocking, which means it will send multiple requests to a server. Sync is blocking — it will only send the server one request at a time and will wait for that request to be answered by the server.
+
+*  Async increases throughput because multiple operations can run at the same time. Sync is slower and more methodical.
+
+SOME IMPORTNAT POINTS:-
+
+
+#   Asynchronous programming allows more things to be done at the same time and is typically used to enhance the user experience by providing an effortless, quick-loading flow.
+
+#   Synchronous programming is best utilized in reactive systems. While it is simpler for developers to code and is recognized by every programming language, sync is resource-intensive and can slow things down.
+
+
+
+
+
+PROMISES:
+
+What is a promise?
+
+A promise is essentially an improvement of callbacks that manage all asynchronous data activities. A JavaScript promise represents an activity that will either be completed or declined. If the promise is fulfilled, it is resolved; otherwise, it is rejected. Promises, unlike typical callbacks, may be chained.
+
+How do promises work?
+JavaScript promises have three states: pending, resolved, and rejected.
+
+The pending state is the initial state that occurs when a promise is called. While a promise is pending, the calling function continues to run until the promise is completed, returning whatever data was requested to the calling function.
+
+When a promise is completed, it ends in either the resolved state or the rejected state. The resolved state indicates that the promise was successful and that the desired data is passed to the .then() method.
+
+The rejected state indicates that a promise was denied, and the error is passed to the .catch() method.
+
+
+The executor function accepts two callback functions as arguments, resolve and reject, which are referred to as function references. The resolve() and reject() functions each accept one argument, which could be a string, integer, Boolean, object, or array.
+
+To better understand how to create a custom promise, let’s look at the file, script.js:
+
+function getSumNum(a, b) {
+  const customPromise = new Promise((resolve, reject) => {
+    const sum = a + b;
+
+    if(sum <= 5){
+      resolve("Let's go!!")
+    } else {
+      reject(new Error('Oops!.. Number must be less than 5'))
+    }
+  })
+
+  return customPromise
+}
+
+For example, when we request data from a server via an API that returns a promise, we utilize the then() and catch() methods to consume whatever data is delivered.
+
+promise.then(data => {
+  console.log(data)
+})
+.catch(err => {
+  console.log(err)
+})
+In the above code, the then() method is executed when the promise is fulfilled by the resolve() callback. The catch() callback is called if the promise fails, passing the error of reject().
+
+Promise vs. Ajax request
+A client-side request can be transmitted to the server side via an Ajax request. Ajax is a particular type of asynchronous function used to build dynamic websites.
+
+When a client requests data from the server, the server responds with the requested data, while the client continues to perform its current or subsequent action. As a result, the website runs without interruption. It’s also possible to use Ajax with a conventional callback interface:
+
+  const XMLHttpRequest = require('xhr2')
+
+  let url = "https://api.github.com/users/kodecheff";
+  function makeAJAXCall(methodType, url, callback){
+    const xhr = new XMLHttpRequest()
+    xhr.open(methodType, url, true);
+    xhr.onreadystatechange = function(){
+      if (xhr.readyState === 4 && xhr.status === 200){
+        callback(xhr.response);
+      }
+    }
+
+    xhr.send();
+    console.log("request sent to the server");
+  }
+
+  // callback function
+  function logUser(data){
+    console.log(data)
+  }
+
+  makeAJAXCall("GET", url, logUser);
+})
+
+In contrast, promises are a technique used to control asynchronous activities. These asynchronous operations can be coordinated with other codes or asynchronous functions by keeping track of their states (pending, resolved, rejected) and the results (including any errors).
+
+Promise and Ajax requests can both be wrapped inside of each other. Let’s say we want to begin an asynchronous operation, and once it is complete, begin another asynchronous operation (perhaps using the results of the first one).
+
+In this type of situation, we would normally nest one inside the other. But unlike Ajax, a series of asynchronous tasks can be performed from one single Promise outcome, eliminating callback hell or nested functions.
+
+Another distinction between promises and Ajax requests is that Ajax can be utilized with different technologies, whereas promises require JavaScript to function.
+
+Async/Await :
+The await operator is used to wait for a Promise and get its fulfillment value. It can only be used inside an async function or at the top level of a module.
+await is usually used to unwrap promises by passing a Promise as the expression. Using await pauses the execution of its surrounding async function until the promise is settled (that is, fulfilled or rejected). When execution resumes, the value of the await expression becomes that of the fulfilled promise.
+
+If the promise is rejected, the await expression throws the rejected value. The function containing the await expression will appear in the stack trace of the error. Otherwise, if the rejected promise is not awaited or is immediately returned, the caller function will not appear in the stack trace.
+
+The expression is resolved in the same way as Promise.resolve(): it's always converted to a native Promise and then awaited. If the expression is a:
+
+Native Promise (which means expression belongs to Promise or a subclass, and expression.constructor === Promise): The promise is directly used and awaited natively, without calling then().
+Thenable object (including non-native promises, polyfill, proxy, child class, etc.): A new promise is constructed with the native Promise() constructor by calling the object's then() method and passing in a handler that calls the resolve callback.
+Non-thenable value: An already-fulfilled Promise is constructed and used.
+Even when the used promise is already fulfilled, the async function's execution still pauses until the next tick. In the meantime, the caller of the async function resumes execution. See example below.
+
+Because await is only valid inside async functions and modules, which themselves are asynchronous and return promises, the await expression never blocks the main thread and only defers execution of code that actually depends on the result, i.e. anything after the await expression.
+
+Examples
+Awaiting a promise to be fulfilled
+If a Promise is passed to an await expression, it waits for the Promise to be fulfilled and returns the fulfilled value.
+
+function resolveAfter2Seconds(x) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(x);
+    }, 2000);
+  });
+}
+
+async function f1() {
+  const x = await resolveAfter2Seconds(10);
+  console.log(x); // 10
+}
+
+f1();
+
+
+
+
+
