@@ -15,7 +15,8 @@ class Solution1 {
                 int temp=nums[i];
                 nums[i]=nums[j];
                 nums[j]=temp;
-            }else{
+            }
+            else{
                 continue;
             }
         }
